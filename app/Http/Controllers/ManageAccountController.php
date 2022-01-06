@@ -7,77 +7,75 @@ use App\Models\Admin;
 use App\Models\Medical;
 use App\Models\Technician;
 use App\Models\User;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ManageAccountController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $user_model = Auth::user();
-        $user_type = [
-            RoleType::MEDICAL => Medical::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::TECHNICIAN => Technician::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::ADMIN => Admin::where('user_id', $user_model->user_id)->with('detail')->first()
-        ];
-        $user = $user_type[$user_model->role_type];
+//        $user_model = User::find(Auth::id());
+        $user_model = User::find(Auth::id());
 
-        dd($user);
+        $user_type = get_user_type($user_model);
+
+        return view('ManageAccount.index', [
+            'user' => $user_model,
+            'user_type' => $user_type
+        ]);
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function edit()
     {
-        //
+        $user_model = User::find(Auth::id());
+
+        $user_type = get_user_type($user_model);
+
+        return view('ManageAccount.edit', [
+            'user' => $user_model,
+            'user_type' => $user_type
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int  $user_id
      */
     public function update(Request $request, $user_id)
     {
         $user_model = User::find($user_id);
-        $user_type = [
-            RoleType::MEDICAL => Medical::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::TECHNICIAN => Technician::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::ADMIN => Admin::where('user_id', $user_model->user_id)->with('detail')->first()
-        ];
+        $user_type = get_user_type($user_model);
 
         $user_model->update($request->except('staff_id'));
         $user_type->update($request->only('staff_id'));
 
-        dd($user_type);
+        return redirect()->route('manage-account.view');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $user_id
      */
     public function destroy($user_id)
     {
         $user_model = User::find($user_id);
 
-        $user_type = [
-            RoleType::MEDICAL => Medical::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::TECHNICIAN => Technician::where('user_id', $user_model->user_id)->with('detail')->first(),
-            RoleType::ADMIN => Admin::where('user_id', $user_model->user_id)->with('detail')->first()
-        ];
+        $user_type = get_user_type($user_model);
+
+        return redirect()->intended(RouteServiceProvider::HOME);
     }
 }

@@ -29,7 +29,7 @@ Route::group(['prefix' => 'account', 'as' => 'manage-account.'], function () {
         ->name('delete');
 });
 
-Route::group(['prefix' => 'patient', 'as' => 'mananage-patient.'], function (){
+Route::group(['prefix' => 'patient', 'as' => 'manage-patient.'], function (){
     Route::get('/view', [ManagePatientController::class, 'index'])
         ->name('view');
     Route::get('/view/{patient_id}', [ManagePatientController::class, 'show'])
@@ -43,7 +43,7 @@ Route::group(['prefix' => 'patient', 'as' => 'mananage-patient.'], function (){
     Route::post('/update/{patient_id}', [ManagePatientController::class, 'update'])
         ->name('update');
 
-    Route::post('/delete/{patient_id}', [ManagePatientController::class, 'destroy'])
+    Route::get('/delete/{patient_id}', [ManagePatientController::class, 'destroy'])
         ->name('destroy');
 });
 

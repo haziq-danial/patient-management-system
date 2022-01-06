@@ -39,10 +39,10 @@ class CreateRoleSeeder extends Seeder
         $medical->givePermissionTo('update account');
         $medical->givePermissionTo('delete account');
 
-        $medical->givePermissionTo('');
-        $medical->givePermissionTo('');
-        $medical->givePermissionTo('');
-        $medical->givePermissionTo('');
+        $medical->givePermissionTo('view patient');
+        $medical->givePermissionTo('register patient');
+        $medical->givePermissionTo('update patient');
+        $medical->givePermissionTo('delete patient');
 
         $technician = Role::create(['name' => 'technician']);
         $technician->givePermissionTo('view account');
@@ -50,7 +50,23 @@ class CreateRoleSeeder extends Seeder
         $technician->givePermissionTo('update account');
         $technician->givePermissionTo('delete account');
 
+        $technician->givePermissionTo('view patient');
+        $technician->givePermissionTo('register patient');
+        $technician->givePermissionTo('update patient');
+        $technician->givePermissionTo('delete patient');
+
         $admin = Role::create(['name' => 'admin']);
+        $admin->givePermissionTo('view account');
+        $admin->givePermissionTo('register account');
+        $admin->givePermissionTo('update account');
+        $admin->givePermissionTo('delete account');
+
+        $admin->givePermissionTo('view patient');
+        $admin->givePermissionTo('register patient');
+        $admin->givePermissionTo('update patient');
+        $admin->givePermissionTo('delete patient');
+
+
 
     }
 }

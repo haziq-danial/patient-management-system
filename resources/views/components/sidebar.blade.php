@@ -31,7 +31,26 @@
                         </p>
                     </a>
                 </li>
-
+                @can('view account')
+                    <li class="nav-item">
+                        <a href="{{ route('manage-account.view') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user-alt"></i>
+                            <p>
+                                Manage Account
+                            </p>
+                        </a>
+                    </li>
+                @endcan
+                @can('view patient')
+                    <li class="nav-item">
+                        <a href="{{ route('manage-patient.view') }}" class="nav-link">
+                            <i class="nav-icon fas fa-list-alt"></i>
+                            <p>
+                                Manage Patients
+                            </p>
+                        </a>
+                    </li>
+                @endcan
                 <li class="nav-item">
                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="nav-link">
                         <i class="nav-icon fas fa-sign-out-alt"></i>

@@ -16,6 +16,14 @@
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
+    @if ($errors->any())
+        @foreach($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">x</button>
+                <p>{{ $error }}</p>
+            </div>
+        @endforeach
+    @endif
     <div class="register-logo">
         <a href="#"><b>Patient Management System</b></a>
     </div>
@@ -24,9 +32,10 @@
         <div class="card-body register-card-body">
             <p class="login-box-msg">Register a new account</p>
 
-            <form action="#" method="post">
+            <form action="{{ route('register') }}" method="post">
+                @csrf
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Full name">
+                    <input type="text" name="name" class="form-control" placeholder="Full name">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -34,7 +43,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="Email">
+                    <input type="email" name="email" class="form-control" placeholder="Email">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -42,7 +51,47 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Password">
+                    <input type="text" name="tel_no" placeholder="Telephone No" class="form-control">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-address-card"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <textarea name="address" placeholder="Address" class="form-control" rows="6"></textarea>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-location-arrow"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <select name="role_type" class="form-control">
+                        <option value="0">-- Select Role --</option>
+                        <option value="1">Medical Professional</option>
+                        <option value="2">Technician</option>
+                        <option value="3">Hospital Admin</option>
+                    </select>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="staff_id" placeholder="Staff ID" class="form-control">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-address-card"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="text" name="username" placeholder="Username" class="form-control">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -50,7 +99,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="Retype password">
+                    <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
