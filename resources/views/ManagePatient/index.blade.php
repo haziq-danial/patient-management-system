@@ -88,6 +88,7 @@
                                         </button>
                                         <div class="dropdown-menu" role="menu">
                                             <a class="dropdown-item" href="{{ route('manage-patient.show', $patient->patient_id) }}">View</a>
+                                            <a class="dropdown-item" href="{{ route('manage-prescription.index', $patient->patient_id) }}">Prescriptions</a>
                                             <a class="dropdown-item" href="{{ route('manage-patient.edit', $patient->patient_id) }}">Edit</a>
                                             <a class="dropdown-item" href="{{ route('manage-patient.destroy', $patient->patient_id) }}">Delete</a>
                                         </div>

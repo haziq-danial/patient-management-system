@@ -31,6 +31,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('manage-medication.view') }}" class="nav-link">
+                        <i class="nav-icon fas fa-clipboard-list"></i>
+                        <p>
+                            Manage Medications
+                        </p>
+                    </a>
+                </li>
                 @can('view account')
                     <li class="nav-item">
                         <a href="{{ route('manage-account.view') }}" class="nav-link">
